@@ -1,0 +1,58 @@
+---
+- hosts: all
+  become: True
+  tasks:
+    - name: copy core-site
+      copy:
+        src: core-site.xml
+        dest: /etc/hadoop/etc/hadoop/core-site.xml
+        owner: hadoop
+        mode: 0644
+        backup: yes
+      tags:
+        - start
+  
+    - name: copy hdfs-site.xml
+      copy:
+        src: hdfs-site.xml
+        dest: /etc/hadoop/etc/hadoop/hdfs-site.xml
+        owner: hadoop
+        mode: 0644
+        backup: yes
+      tags:
+        - start
+    - name: copy hadoop-env.sh
+      copy:
+        src: hadoop-env.sh
+        dest: /etc/hadoop/etc/hadoop/hadoop-env.sh
+        owner: hadoop
+        mode: 0644
+        backup: yes
+      tags:
+        - start
+
+    - name: copy workers
+      copy:
+        src: workers
+        dest: /etc/hadoop/etc/workers
+        owner: hadoop
+        mode: 0644
+        backup: yes
+      tags:
+        - start
+        
+
+- hosts: 192.168.1.246
+  become: true
+  tasks:
+    - name: start services
+      become_user: hadoop
+      command: /etc/hadoop/sbin/start-all.sh  
+      tags:
+        - start
+
+    - name: stop services
+      become_user: hadoop
+      command: /etc/hadoop/sbin/stop-all.sh
+      tags:
+        - stop
