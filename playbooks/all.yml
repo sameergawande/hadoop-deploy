@@ -26,7 +26,7 @@
        dest: /etc
        owner: hadoop
        remote_src: yes
-     when: not dir_exists.stat.exists and dir_exists.stat.isdir
+     when: dir_exists.stat.exists == False
    - name: permissions
      file:
        path: /etc/hadoop-3.1.3
@@ -48,3 +48,21 @@
        recurse: yes
        owner: hadoop
        mode: 0755
+   - name: clean uninstall
+     file:
+       path: /etc/hadoop
+       state: absent
+     tags:
+       - clean
+   - name: clean tar
+     file:
+       path: /etc/hadoop-3.1.3
+       state: absent
+     tags:  
+       - clean
+   - name: clear tar1
+     file: 
+       path: /etc/hadoop-3.1.3.tar.gz
+       state: absent
+     tags:
+       - clean
