@@ -1,4 +1,15 @@
 ---
+- hosts: nn
+  become: True
+  tasks:
+    - name: format namenode
+      become_user: hadoop
+      command: "{{item}}"
+      with_items:
+        - /etc/hadoop/sbin/stop-all.sh
+        - /etc/hadoop/bin/hadoop namenode format
+  tags:
+    - reset namenode        
 - hosts: all
   become: True
   tasks:
@@ -42,7 +53,7 @@
         - start
         
 
-- hosts: 192.168.1.246
+- hosts: 192.168.1.226
   become: true
   tasks:
     - name: start services

@@ -48,6 +48,21 @@
        recurse: yes
        owner: hadoop
        mode: 0755
+   - name: create nn dir
+     file:
+       path: /home/hdfs/data/nameNode
+       state: present
+       owner: hadoop
+       group: hadoop
+       mode: 0755
+   - name: install packages
+     yum: name = {{items}} state=installed
+     with_items:
+       - net-tools  
+   - name: manage services
+     service: name= {{items}} state=stopped enabled=no
+     with_items:
+       - firewallcmd
    - name: clean uninstall
      file:
        path: /etc/hadoop
