@@ -1,10 +1,10 @@
 <configuration>
   <property>
-    <name>fs.default.name</name>
-    <value>hdfs://192.168.1.226</value>
+    <name>fs.defaultFS</name>
+    <value>hdfs://mycluster</value>
   </property>
   <property>
-    <name>fs.defaultFS</name>
-    <value>hdfs://192.168.1.226:9000</value>
+    <name>dfs.journalnode.edits.dir</name>
+    <value>/home/hdfs/data/journal/data</value>
   </property>
 </configuration>
