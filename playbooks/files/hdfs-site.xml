@@ -37,4 +37,12 @@
            <name>dfs.namenode.http-address.mycluster.nn2</name>
            <value>192.168.1.227:50070</value>
     </property>
+    <property>
+           <name>dfs.namenode.shared.edits.dir</name>
+           <value>file:///home/hdfs/data/edits</value>
+    </property>
+    <property>
+           <name>dfs.client.failover.proxy.provider.mycluster</name>
+           <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
 </configuration>
