@@ -1,0 +1,18 @@
+---
+- hosts: wn,nn
+  become: True
+  tasks:
+   - name: verify tar file exists
+     stat:
+       path: /etc/hadoop-3.1.3.tar.gz
+     register: file_exists
+     tags:  
+      - download_software
+   - name: verify directory exists
+     stat:
+       path: /etc/hadoop-3.1.3
+     register: directory_exists
+     tags:  
+      - download_software
+ 
+  

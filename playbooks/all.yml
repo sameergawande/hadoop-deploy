@@ -7,10 +7,14 @@
      stat:
        path: /etc/hadoop-3.1.3.tar.gz
      register: path_exists
+     tags:
+       - deploy 
    - name: find if dir exists
      stat:
        path: /etc/hadoop-3.1.3
      register: dir_exists
+     tags:
+       - deploy 
    - name: install tar file
      get_url:
        url: "http://apache.cs.utah.edu/hadoop/common/current/hadoop-3.1.3.tar.gz"
@@ -19,6 +23,8 @@
        validate_certs: no
        dest: /etc
        owner: hadoop
+     tags:
+       - deploy 
      when: not path_exists.stat.exists
    - name: uncompress tar
      unarchive:
@@ -27,6 +33,8 @@
        owner: hadoop
        remote_src: yes
      when: dir_exists.stat.exists == False
+     tags:
+       - deploy 
    - name: permissions
      file:
        path: /etc/hadoop-3.1.3
@@ -34,6 +42,8 @@
        recurse: yes
        owner: hadoop
        mode: 0755
+     tags:
+       - deploy 
    - name: create link
      file:
        src: /etc/hadoop-3.1.3
@@ -41,6 +51,8 @@
        owner: hadoop
        mode: 0755
        state: link
+     tags:
+       - deploy 
    - name: permissions for link
      file:
        path: /etc/hadoop
@@ -48,21 +60,84 @@
        recurse: yes
        owner: hadoop
        mode: 0755
+     tags:
+       - deploy 
+   - name: install tar file
+     get_url:
+       url: "http://mirror.cogentco.com/pub/apache/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1.tar.gz"
+       force: yes
+       unsafe_writes: yes
+       validate_certs: no
+       dest: /etc
+       owner: hadoop
+     tags:
+       - deploy-zk
+   - name: uncompress tar
+     unarchive:
+       src: /etc/apache-zookeeper-3.6.1.tar.gz
+       dest: /etc
+       owner: hadoop
+       remote_src: yes
+#     when: dir_exists.stat.exists == False
+     tags:
+       - deploy-zk
+   - name: permissions
+     file:
+       path: /etc/apache-zookeeper-3.6.1
+       state: directory
+       recurse: yes
+       owner: hadoop
+       mode: 0755
+     tags:
+       - deploy-zk
+   - name: create link
+     file:
+       src: /etc/apache-zookeeper-3.6.1
+       dest: /etc/zk
+       owner: hadoop
+       mode: 0755
+       state: link
+     tags:
+       - deploy-zk
+   - name: permissions for link
+     file:
+       path: /etc/zk
+       state: directory
+       recurse: yes
+       owner: hadoop
+       mode: 0755
+     tags:
+       - deploy-zk
    - name: create nn dir
      file:
        path: /home/hdfs/data/nameNode
-       state: present
+       state: directory
        owner: hadoop
        group: hadoop
        mode: 0755
+     tags:
+       - deploy 
+   - name: create edits dir
+     file:
+       path: /home/hdfs/data/edits
+       state: directory
+       owner: hadoop
+       group: hadoop
+       mode: 0755
+     tags:
+       - deploy 
    - name: install packages
-     yum: name = {{items}} state=installed
+     yum: name = {{item}} state=installed
      with_items:
        - net-tools  
+     tags:
+       - deploy 
    - name: manage services
-     service: name= {{items}} state=stopped enabled=no
+     service: name= {{item}} state=stopped enabled=no
      with_items:
        - firewallcmd
+     tags:
+       - deploy 
    - name: clean uninstall
      file:
        path: /etc/hadoop
