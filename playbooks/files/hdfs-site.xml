@@ -1,7 +1,7 @@
 <configuration>
     <property>
             <name>dfs.namenode.name.dir</name>
-            <value>/home/hdfs/data/nameNode</value>
+            <value>/data/hdfs/data/nameNode</value>
     </property>
 
     <property>
@@ -39,7 +39,7 @@
     </property>
     <property>
            <name>dfs.namenode.shared.edits.dir</name>
-           <value>file:///home/hdfs/data/edits</value>
+           <value>file:///data/hdfs/data/edits</value>
     </property>
     <property>
            <name>dfs.client.failover.proxy.provider.mycluster</name>
