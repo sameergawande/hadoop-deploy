@@ -1,0 +1,5 @@
+---
+- hosts: all
+  become: True
+  tasks:
+   - name: deploy {core-site,hdfs-site}.xml, workers, hadoop-env.sh
