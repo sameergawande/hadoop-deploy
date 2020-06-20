@@ -10,6 +10,26 @@
         - /etc/hadoop/bin/hadoop namenode format
   tags:
     - reset namenode        
+    - clean-uninstall
+- hosts: all
+  become: True
+  tasks:
+    - name: clean directories
+      command: "rm -rf {{item}}"
+      with_items:
+        - /etc/hadoop*
+        - /home/hdfs
+        - /home/hadoop
+  tags: 
+    - remove-hadoop
+    - clean-uninstall
+- hosts: all
+  become: True
+  tasks:
+    - name: uninstall user
+      command: userdel hadoop
+  tags:
+    - clean-uninstall
 - hosts: all
   become: True
   tasks:
