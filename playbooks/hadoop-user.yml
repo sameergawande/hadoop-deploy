@@ -1,0 +1,22 @@
+--- 
+- hosts: nn,wn
+  become: True
+  tasks: 
+   - name: check if user exists
+     shell: "id hadoop"
+     register: user_result
+     ignore_errors: True
+   - name: check if group exists
+     shell: "groups hadoop"
+     register: group_result
+     ignore_errors: True
+   - name: add user if user does not exist
+     user:
+      name: hadoop
+      shell: /bin/bash
+     when: "'no such user' in user_result.stderr"
+   - name: add group if user does not exist
+     group:
+      name: hadoop
+      state: present
+     when: "('groups: hadoopa: no such user' in group_result.stderr)"
