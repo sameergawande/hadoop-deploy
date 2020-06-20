@@ -33,4 +33,13 @@ tasks:
     owner: hadoop
     state: link
   - name: directory for namenode, datanode
+    file:
+     path: '/data/hdfs/data/{{item}}'
+     state: directory
+     mode: 0755
+     owner: hadoop
+    loop:
+     { path: dataNode }
+     { path: nameNode }
+     
     
