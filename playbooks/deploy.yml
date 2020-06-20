@@ -1,3 +1,6 @@
+###pending completion
+###pending testing
+###pending deployment and validation
 ---
 hosts: nn,wn
 become: True
@@ -10,7 +13,24 @@ tasks:
    stat:
     path: /data/hadoop-3.1.3
    register: dir_exists
-
  - name: download tar
+   get_url: 
+    url: http://apache.cs.utah.edu/hadoop/common/current/hadoop-3.1.3.tar.gz
+    dest: /data/
+    owner: hadoop
+  when: not tar_exists.stat.exists
  - name: untar the file
+   unarchive:
+    src: /data/hadoop-3.1.3.tar.gz
+    dest: /data/hadoop-3.1.3
+    remote_src: yes    
+   when: dir_exists.stat.exists==False
  - name: create links
+   file:
+    src: /data/hadoop-3.1.3
+    dest: /data/hadoop
+    mode: 0755
+    owner: hadoop
+    state: link
+  - name: directory for namenode, datanode
+    
