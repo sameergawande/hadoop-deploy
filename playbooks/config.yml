@@ -6,8 +6,8 @@
       become_user: hadoop
       command: "{{item}}"
       with_items:
-        - /etc/hadoop/sbin/stop-all.sh
-        - /etc/hadoop/bin/hadoop namenode format
+        - /data/hadoop/sbin/stop-all.sh
+        - /data/hadoop/bin/hadoop namenode format
   tags:
     - reset namenode        
     - clean-uninstall
@@ -17,7 +17,7 @@
     - name: clean directories
       command: "rm -rf {{item}}"
       with_items:
-        - /etc/hadoop*
+        - /data/hadoop*
         - /home/hdfs
         - /home/hadoop
   tags: 
@@ -36,7 +36,7 @@
     - name: copy core-site
       copy:
         src: core-site.xml
-        dest: /etc/hadoop/etc/hadoop/core-site.xml
+        dest: /data/hadoop/etc/hadoop/core-site.xml
         owner: hadoop
         mode: 0644
         backup: yes
@@ -46,7 +46,7 @@
     - name: copy hdfs-site.xml
       copy:
         src: hdfs-site.xml
-        dest: /etc/hadoop/etc/hadoop/hdfs-site.xml
+        dest: /data/hadoop/etc/hadoop/hdfs-site.xml
         owner: hadoop
         mode: 0644
         backup: yes
@@ -55,7 +55,7 @@
     - name: copy hadoop-env.sh
       copy:
         src: hadoop-env.sh
-        dest: /etc/hadoop/etc/hadoop/hadoop-env.sh
+        dest: /data/hadoop/etc/hadoop/hadoop-env.sh
         owner: hadoop
         mode: 0644
         backup: yes
@@ -65,7 +65,7 @@
     - name: copy workers
       copy:
         src: workers
-        dest: /etc/hadoop/etc/workers
+        dest: /data/hadoop/etc/workers
         owner: hadoop
         mode: 0644
         backup: yes
@@ -78,12 +78,12 @@
   tasks:
     - name: start services
       become_user: hadoop
-      command: /etc/hadoop/sbin/start-all.sh  
+      command: /data/hadoop/sbin/start-all.sh  
       tags:
         - start
 
     - name: stop services
       become_user: hadoop
-      command: /etc/hadoop/sbin/stop-all.sh
+      command: /data/hadoop/sbin/stop-all.sh
       tags:
         - stop
