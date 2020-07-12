@@ -3,3 +3,12 @@
   become: True
   tasks:
    - name: deploy {core-site,hdfs-site}.xml, workers, hadoop-env.sh
+     copy: src={{ item.src }} dest={{ item.dest }}
+     with_items:
+      - { src: '/Users/sameergawande/git/hadoop-deploy/playbooks/files/core-site.xml', dest: '/data/hadoop/etc/hadoop/core-site.xml' }
+      - { src: '/Users/sameergawande/git/hadoop-deploy/playbooks/files/hdfs-site.xml', dest: '/data/hadoop/etc/hadoop/hdfs-site.xml' }
+      - { src: '/Users/sameergawande/git/hadoop-deploy/playbooks/files/hadoop-env.sh', dest: '/data/hadoop/etc/hadoop/hadoop-env.sh' }
+      - { src: '/Users/sameergawande/git/hadoop-deploy/playbooks/files/workers', dest: '/data/hadoop/etc/hadoop/workers' }
+ 
+     
+     
