@@ -23,27 +23,27 @@
     </property>
     <property>
             <name>dfs.namenode.rpc-address.mycluster.nn1</name>
-            <value>192.168.1.226:8020</value>
+            <value>192.168.1.231:8020</value>
     </property>
     <property>
             <name>dfs.namenode.rpc-address.mycluster.nn2</name>
-            <value>192.168.1.227:8020</value>
+            <value>192.168.1.216:8020</value>
     </property>
     <property>
             <name>dfs.namenode.rpc-address.mycluster.nn3</name>
-            <value>192.168.1.244:8020</value>
+            <value>192.168.1.190:8020</value>
     </property>
     <property>
            <name>dfs.namenode.http-address.mycluster.nn1</name>
-           <value>192.168.1.226:50070</value>
+           <value>192.168.1.231:50070</value>
     </property>
     <property>
            <name>dfs.namenode.http-address.mycluster.nn2</name>
-           <value>192.168.1.227:50070</value>
+           <value>192.168.1.216:50070</value>
     </property>
     <property>
            <name>dfs.namenode.http-address.mycluster.nn3</name>
-           <value>192.168.1.244:50070</value>
+           <value>192.168.1.190:50070</value>
     </property>
     <property>
            <name>dfs.namenode.shared.edits.dir</name>

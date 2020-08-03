@@ -9,7 +9,7 @@
         - /etc/hadoop/sbin/stop-all.sh
         - /etc/hadoop/bin/hadoop namenode format
   tags:
-    - reset namenode        
+    - reset-namenode        
     - clean-uninstall
 - hosts: all
   become: True

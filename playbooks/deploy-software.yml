@@ -18,22 +18,20 @@
      get_url:
       url: http://apache.cs.utah.edu/hadoop/common/current/hadoop-3.1.3.tar.gz
       dest: /etc/
-      owner: hadoop
-      group: hadoop
+      owner: root
      when:
-      file_exists.stat.exists == False
+      file_exists.stat.exists == false
      tags:
       - download_software
    - name: uncompress software
      unarchive:
       src: /etc/hadoop-3.1.3.tar.gz
-      dest: /etc/hadoop-3.1.3
+      dest: /etc/
       remote_src: yes
-      owner: hadoop
-      group: hadoop
+      owner: root
       mode: 0755
      when:
-      directory_exists.stat.exists == False
+       directory_exists.stat.exists == false
    - name: create links for the hadoop directory
      file:
       src: /etc/hadoop-3.1.3
@@ -41,4 +39,3 @@
       owner: hadoop
       group: hadoop
       state: link
- 
