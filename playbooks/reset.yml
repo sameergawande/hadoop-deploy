@@ -1,0 +1,41 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   - name: remove hadoop user
+     user: 
+       name: hadoop
+       force: yes
+       state: absent
+       remove: yes
+
+   - name: remove hadoop group
+     group: 
+       name: hadoop
+       state: absent
+
+   - name: remove files
+     file: 
+       path: "{{item}}"
+       state: absent
+     with_items:
+       - /etc/hadoop
+       - /etc/hadoop-3.1.3
+       - /home/hadoop/
+       - /home/hdfs
+       - /opt/zookeeper
+       - /home/zk
+       - /etc/zk
+ 
+   - name: clean packages
+     yum:
+       name: "{{item}}"
+       state: absent
+     with_items:
+       - java-1.8.0
+       - copy-jdk-configs-3.3-10
+       - java-1.7.0
+       - jdk-14.0.1
+       - java-1.7.0-openjdk-headless
+       - java-1.8.0-openjdk-headless
+     

@@ -1,5 +1,0 @@
----
-- hosts: nn
-  become: True
-  tasks:
-    - 

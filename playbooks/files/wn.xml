@@ -1,0 +1,31 @@
+<configuration>
+    <property>
+            <name>dfs.datanode.data.dir</name>
+            <value>/home/hdfs/data/dataNode</value>
+    </property>
+
+    <property>
+            <name>dfs.replication</name>
+            <value>1</value>
+    </property>
+    <property>
+	    <name>dfs.nameservices</name>
+	    <value>mycluster</value>
+    </property>
+    <property>
+            <name>dfs.ha.namenodes.mycluster</name>
+            <value>nn1,nn2</value>
+    </property>
+    <property>
+           <name>dfs.namenode.shared.edits.dir</name>
+           <value>/home/hdfs/data/edits</value>
+    </property>
+    <property>
+           <name>dfs.ha.automatic-failover.enabled</name>
+           <value>true</value>
+    </property>
+    <property>
+   	   <name>ha.zookeeper.quorum</name>
+           <value>192.168.1.231:2181,192.168.1.216:2181,192.168.1.190:2181</value>
+    </property>
+</configuration>

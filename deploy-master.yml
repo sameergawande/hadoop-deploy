@@ -1,0 +1,6 @@
+---
+- hosts: zk
+  become: true
+  roles:
+   - users
+   - deploy-configs
