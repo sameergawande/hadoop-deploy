@@ -1,0 +1,66 @@
+---
+- hosts: nn,zk
+  become: true
+  tasks: 
+   - name: create nn dir
+     file:
+       path: /home/hdfs/data/nameNode
+       state: directory
+       owner: hadoop
+       group: hadoop
+       mode: 0755
+     tags:
+       - deploy 
+   - name: create edits dir
+     file:
+       path: /home/hdfs/data/edits
+       state: directory
+       owner: hadoop
+       group: hadoop
+       mode: 0755
+     tags:
+       - deploy 
+   - name: deploy zk dir
+     file: 
+       path: /home/hdfs/data/zookeeper
+       state: directory
+       owner: hadoop
+       group: hadoop
+       mode: 0755
+     tags:
+       - deploy 
+     
+   - name: deploy zoo.cfg
+     copy: 
+       src: zoo.cfg
+       dest: /etc/zk/conf
+       owner: hadoop
+       group: hadoop
+       mode: 0755
+     tags:
+       - deploy 
+ 
+   - name: copy jdk
+     copy: 
+       src: jdk-14.0.1_linux-x64_bin.rpm
+       dest: /opt
+       owner: hadoop
+       mode: 0755
+
+   - name: install packages
+     yum: name = {{item}} state=installed
+     with_items:
+       - net-tools  
+     tags:
+       - deploy 
+
+   - name: install jdk
+     yum: 
+       name: /opt/jdk-14.0.1_linux-x64_bin.rpm
+       state: present
+   - name: manage services
+     service: name= {{item}} state=stopped enabled=no
+     with_items:
+       - firewallcmd
+     tags:
+       - deploy 
