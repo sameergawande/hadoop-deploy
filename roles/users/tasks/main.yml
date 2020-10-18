@@ -26,6 +26,7 @@
     - { src: 'id_rsa', dest: '/home/hadoop/.ssh/id_rsa'}
     - { src: 'id_rsa.pub', dest: '/home/hadoop/.ssh/id_rsa.pub'}
     - { src: 'authorized_keys', dest: '/home/hadoop/.ssh/authorized_keys'}
+    - { src: 'bash_profile', dest: '/home/hadoop/.bash_profile'}
 - name: add group if user does not exist
   group:
    name: hadoop

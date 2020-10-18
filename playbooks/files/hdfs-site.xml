@@ -1,12 +1,14 @@
 <configuration>
     <property>
             <name>dfs.namenode.name.dir</name>
-            <value>/home/hdfs/data/nameNode</value>
+            <value>file:/mnt/data/nameNode</value>
     </property>
     <property>
             <name>dfs.replication</name>
             <value>1</value>
     </property>
+
+
     <property>
 	    <name>dfs.nameservices</name>
 	    <value>mycluster</value>
