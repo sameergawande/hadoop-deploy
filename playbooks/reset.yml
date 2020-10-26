@@ -21,11 +21,13 @@
      with_items:
        - /etc/hadoop
        - /etc/hadoop-3.1.3
+       - /etc/hadoop-3.1.3.tar.gz
        - /home/hadoop/
        - /home/hdfs
        - /opt/zookeeper
        - /home/zk
        - /etc/zk
+       - /mnt/data/edits
  
    - name: clean packages
      yum:
@@ -38,4 +40,5 @@
        - jdk-14.0.1
        - java-1.7.0-openjdk-headless
        - java-1.8.0-openjdk-headless
+       - copy-jdk-configs
      

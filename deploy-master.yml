@@ -3,4 +3,4 @@
   become: true
   roles:
    - users
-#   - deploy-configs
+   - deploy-master-base

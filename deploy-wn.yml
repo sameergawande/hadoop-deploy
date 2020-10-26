@@ -1,0 +1,8 @@
+---
+- hosts: wn
+  become: true
+  roles:
+    - role: users
+
+    - role: deploy-master-base
+      tags: ["deploy-wn"]

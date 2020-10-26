@@ -40,12 +40,12 @@
      tags:
        - deploy 
  
-   - name: copy jdk
-     copy: 
-       src: jdk-14.0.1_linux-x64_bin.rpm
-       dest: /opt
-       owner: hadoop
-       mode: 0755
+#   - name: copy jdk
+#     copy: 
+#       src: jdk-14.0.1_linux-x64_bin.rpm
+#       dest: /opt
+#       owner: hadoop
+#       mode: 0755
 
    - name: install packages
      yum: name = {{item}} state=installed
@@ -54,10 +54,10 @@
      tags:
        - deploy 
 
-   - name: install jdk
-     yum: 
-       name: /opt/jdk-14.0.1_linux-x64_bin.rpm
-       state: present
+#   - name: install jdk
+#     yum: 
+#       name: /opt/jdk-14.0.1_linux-x64_bin.rpm
+#       state: present
    - name: manage services
      service: name= {{item}} state=stopped enabled=no
      with_items:

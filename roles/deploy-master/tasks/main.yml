@@ -1,0 +1,10 @@
+---
+- name: copy keys
+  copy: src={{item.src}} dest={{item.dest}}
+  with_items:
+    - { src: 'core-site.xml', dest: '/etc/hadoop/etc/hadoop/core-site.xml'}
+    - { src: 'hdfs-site.xml', dest: '/etc/hadoop/etc/hadoop/hdfs-site.xml'}
+    - { src: 'hadoop-env.sh', dest: '/etc/hadoop/etc/hadoop/hadoop-env.sh'}
+  notify:
+    - restart namenode
+

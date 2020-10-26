@@ -1,0 +1,33 @@
+---
+# tasks file for dns-clients
+-  name: remove packages
+   yum:
+     name:
+       - dhclient
+       - NetworkManager
+     state: absent
+-  name: copy
+   copy:
+     src: resolv.conf
+     dest: /etc/resolv.conf
+     owner: root
+     group: root
+     mode: '0644'
+- name: add default gw if not present
+  lineinfile:
+    path: "/etc/sysconfig/network"
+    regexp: "GATEWAY=192.168.1.1"
+    line:  "GATEWAY=192.168.1.1"
+    state: present
+- name: restart network
+  service:
+    name: network
+    state: restarted
+-  name: install packages
+   yum:
+     name:
+       - net-tools
+       - nc
+       - java-1.8.0-openjdk
+     state: present
+   
