@@ -2,4 +2,6 @@ export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
 export HADOOP_HOME=/etc/hadoop
 #export HADOOP_COMMON_HOME=$HADOOP_HOME
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export YARN_HOME=/etc/hadoop
 export PATH=$PATH:/etc/hadoop/bin:/etc/hadoop/sbin:.
+export YARN_EXMPLES=$YARN_HOME/share/hadoop/mapreduce/

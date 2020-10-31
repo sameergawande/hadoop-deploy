@@ -4,15 +4,21 @@
   shell: "id hadoop"
   register: user_result
   ignore_errors: True
+  tags:
+   - ["deploy-all"]
 - name: check if group exists
   shell: "groups hadoop"
   register: group_result
   ignore_errors: True
+  tags:
+   - ["deploy-all"]
 - name: add user if user does not exist
   user:
    name: hadoop
    shell: /bin/bash
   when: "'no such user' in user_result.stderr"
+  tags:
+   - ["deploy-all"]
 - name: create dir
   file:
     path: /home/hadoop/.ssh
@@ -20,6 +26,8 @@
     owner: hadoop
     group: hadoop
     mode: 0700
+  tags:
+   - ["deploy-all"]
 - name: copy keys
   copy: src={{item.src}} dest={{item.dest}}
   with_items:
@@ -27,8 +35,12 @@
     - { src: 'id_rsa.pub', dest: '/home/hadoop/.ssh/id_rsa.pub'}
     - { src: 'authorized_keys', dest: '/home/hadoop/.ssh/authorized_keys'}
     - { src: 'bash_profile', dest: '/home/hadoop/.bash_profile'}
+  tags:
+   - ["deploy-all"]
 - name: add group if user does not exist
   group:
    name: hadoop
    state: present
   when: "('groups: hadoopa: no such user' in group_result.stderr)"
+  tags:
+   - ["deploy-all"]

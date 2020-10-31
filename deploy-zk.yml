@@ -3,4 +3,4 @@
   become: True
   roles:
    - users
-   - deploy-zk
+ #  - deploy-zk
