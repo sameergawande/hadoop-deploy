@@ -84,7 +84,7 @@
     - ["deploy-all"]
 - name: create edits dir
   file:
-    path: /mnt/data1/edits
+    path: /data/mycluster
     state: directory
     owner: hadoop
     group: hadoop
@@ -99,13 +99,3 @@
     - { src: 'hadoop-env.sh', dest: '/etc/hadoop/etc/hadoop/hadoop-env.sh'}
   tags:
    - ["deploy-all"]
-- name: namenode format
-  become_user: hadoop
-  command: "{{item}}"
-  with_items:
-    - "/etc/hadoop/bin/hdfs --daemon stop namenode"
-    - "/etc/hadoop/bin/hadoop namenode -format -noninteractive"
-    - "/bin/sleep 10"
-    - "/etc/hadoop/sbin/start-all.sh"
-  tags: 
-   - ["deploy-master"]
