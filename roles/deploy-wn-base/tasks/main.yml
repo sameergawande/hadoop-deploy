@@ -1,0 +1,68 @@
+---
+# tasks file for deploy-configs
+- name: find if tar file exists
+  stat:
+   path: /etc/hadoop-3.1.4.tar.gz
+  register: path_exists
+  tags:
+   - deploy-all
+- name: find if dir exists
+  stat:
+   path: /etc/hadoop-3.1.4
+  register: dir_exists
+- name: install tar file
+  get_url:
+ #  url: "http://apache.cs.utah.edu/hadoop/common/current/hadoop-3.1.4.tar.gz"
+   url: "http://apache.cs.utah.edu/hadoop/common/hadoop-3.1.4/hadoop-3.1.4.tar.gz"
+   force: yes
+   unsafe_writes: yes
+   validate_certs: no
+   dest: /etc
+   owner: hadoop
+   group: hadoop
+#  when: not path_exists.stat.exists
+- name: uncompress tar
+  unarchive:
+   src: /etc/hadoop-3.1.4.tar.gz
+   dest: /etc
+   owner: hadoop
+   group: hadoop
+   remote_src: yes
+  when: dir_exists.stat.exists == False
+- name: permissions
+  file:
+   path: /etc/hadoop-3.1.4
+   state: directory
+   recurse: yes
+   owner: hadoop
+   group: hadoop
+   mode: 0755
+- name: create link
+  file:
+   src: /etc/hadoop-3.1.4
+   dest: /etc/hadoop
+   owner: hadoop
+   group: hadoop
+   mode: 0755
+   state: link
+- name: permissions for link
+  file:
+   path: /etc/hadoop
+   state: directory
+   recurse: yes
+   owner: hadoop
+   group: hadoop
+   mode: 0755
+- name: create dn dir
+  file:
+    path: /home/hdfs/data/dataNode
+    state: directory
+    owner: hadoop
+    group: hadoop
+    mode: 0755
+- name: copy configs
+  copy: src={{item.src}} dest={{item.dest}}
+  with_items:
+    - { src: 'core-site.xml', dest: '/etc/hadoop/etc/hadoop/core-site.xml'}
+    - { src: 'hdfs-site.xml', dest: '/etc/hadoop/etc/hadoop/hdfs-site.xml'}
+    - { src: 'hadoop-env.sh', dest: '/etc/hadoop/etc/hadoop/hadoop-env.sh'}

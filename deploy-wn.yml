@@ -3,6 +3,5 @@
   become: true
   roles:
     - role: users
-
-    - role: deploy-master-base
-      tags: ["deploy-wn"]
+    - role: deploy-infra
+    - role: deploy-wn-base
