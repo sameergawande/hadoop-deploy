@@ -15,6 +15,7 @@
 - name: add user if user does not exist
   user:
    name: hadoop
+   uid: 1003
    shell: /bin/bash
   when: "'no such user' in user_result.stderr"
   tags:
@@ -40,6 +41,7 @@
 - name: add group if user does not exist
   group:
    name: hadoop
+   gid: 1003
    state: present
   when: "('groups: hadoopa: no such user' in group_result.stderr)"
   tags:
