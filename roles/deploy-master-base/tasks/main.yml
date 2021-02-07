@@ -5,13 +5,15 @@
    path: /etc/hadoop-3.1.4.tar.gz
   register: path_exists
   tags:
-   - deploy-all
+    - deploy-all
+    - ["deploy-wn"]
 - name: find if dir exists
   stat:
    path: /etc/hadoop-3.1.4
   register: dir_exists
   tags:
-   - ["deploy-all"]
+    - ["deploy-all"]
+    - ["deploy-wn"]
 - name: install tar file
   get_url:
    #url: "http://apache.cs.utah.edu/hadoop/common/current/hadoop-3.1.3.tar.gz"
@@ -23,7 +25,8 @@
    owner: hadoop
    group: hadoop
   tags:
-   - ["deploy-all"]
+    - ["deploy-all"]
+    - ["deploy-wn"]
 #  when: not path_exists.stat.exists
 - name: uncompress tar
   unarchive:
@@ -34,7 +37,8 @@
    remote_src: yes
   when: dir_exists.stat.exists == False
   tags:
-   - ["deploy-all"]
+    - ["deploy-all"]
+    - ["deploy-wn"]
 - name: permissions
   file:
    path: /etc/hadoop-3.1.4
@@ -44,7 +48,8 @@
    group: hadoop
    mode: 0755
   tags:
-   - ["deploy-all"]
+    - ["deploy-all"]
+    - ["deploy-wn"]
 - name: create link
   file:
    src: /etc/hadoop-3.1.4
@@ -54,7 +59,8 @@
    mode: 0755
    state: link
   tags:
-   - ["deploy-all"]
+    - ["deploy-all"]
+    - ["deploy-wn"]
 - name: permissions for link
   file:
    path: /etc/hadoop
@@ -64,7 +70,8 @@
    group: hadoop
    mode: 0755
   tags:
-   - ["deploy-all"]
+    - ["deploy-all"]
+    - ["deploy-wn"]
 - name: create nn dir
   file:
     path: /home/hdfs/data/nameNode
@@ -74,6 +81,7 @@
     mode: 0755
   tags: 
    - ["deploy-all"]
+
 - name: create dn dir
   file:
     path: /home/hdfs/data/dataNode
@@ -83,6 +91,7 @@
     mode: 0755
   tags:
     - ["deploy-all"]
+    - ["deploy-wn"]
 - name: create edits dir
   file:
     path: /mnt/data1/edits
@@ -91,7 +100,8 @@
     group: hadoop
     mode: 0755
   tags: 
-   - ["deploy-all"]
+    - ["deploy-all"]
+
 - name: copy configs
   copy: src={{item.src}} dest={{item.dest}}
   with_items:
@@ -100,6 +110,7 @@
     - { src: 'hadoop-env.sh', dest: '/etc/hadoop/etc/hadoop/hadoop-env.sh'}
   tags:
    - ["deploy-all"]
+   - ["deploy-wn"]
 - name: namenode format
   become_user: hadoop
   command: "{{item}}"

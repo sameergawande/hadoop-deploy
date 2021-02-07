@@ -2,6 +2,11 @@
 - hosts: all
   become: true
   tasks:
+   - name: stop hadoop services
+     command: "/etc/hadoop/bin/hdfs --daemon stop namenode"
+     become: yes
+     become_user: hadoop
+     
    - name: remove hadoop user
      user: 
        name: hadoop
