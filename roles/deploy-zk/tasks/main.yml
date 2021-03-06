@@ -14,7 +14,7 @@
    - deploy-zk
 - name: install tar file
   get_url:
-   url: "https://archive.apache.org/dist/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1.tar.gz"
+   url: "https://archive.apache.org/dist/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz"
    force: yes
    unsafe_writes: yes
    validate_certs: no
@@ -26,7 +26,7 @@
    - deploy-zk
 - name: uncompress tar
   unarchive:
-   src: /etc/apache-zookeeper-3.6.1.tar.gz
+   src: /etc/apache-zookeeper-3.6.1-bin.tar.gz
    dest: /etc
    owner: hadoop
    group: hadoop
@@ -36,7 +36,7 @@
    - deploy-zk
 - name: permissions
   file:
-   path: /etc/apache-zookeeper-3.6.1
+   path: /etc/apache-zookeeper-3.6.1-bin
    state: directory
    recurse: yes
    owner: hadoop
@@ -45,7 +45,7 @@
    - deploy-zk
 - name: create link
   file:
-   src: /etc/apache-zookeeper-3.6.1
+   src: /etc/apache-zookeeper-3.6.1-bin
    dest: /etc/zk
    owner: hadoop
    group: hadoop
@@ -63,3 +63,24 @@
    mode: 0755
   tags:
    - deploy-zk
+- name: create directory for keeping namenode meta on zk
+  file:
+   path: /data
+   owner: hadoop
+   group: hadoop
+   mode: 0755
+   state: directory
+- name: create directory for zk config
+  file:
+   path: /home/hdfs/data/zookeeper
+   owner: hadoop
+   group: hadoop
+   mode: 0755
+   state: directory
+- name: copy zoo.cfg
+  copy:
+   src: zoo.cfg
+   dest: /etc/zk/conf/zoo.cfg
+   owner: hadoop
+   group: hadoop
+   mode: 0644

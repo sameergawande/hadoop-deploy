@@ -1,5 +1,5 @@
 ---
-- hosts: zk
+- hosts: mn
   become: True
   roles:
    - users

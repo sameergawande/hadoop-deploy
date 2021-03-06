@@ -17,29 +17,37 @@
     </property>
     <property>
             <name>dfs.ha.namenodes.mycluster</name>
-            <value>nn1,nn2</value>
+            <value>nn3,nn4</value>
     </property>
     <property>
-            <name>dfs.namenode.rpc-address.mycluster.nn1</name>
-            <value>mn1.gawande.local:8020</value>
+            <name>dfs.namenode.rpc-address.mycluster.nn3</name>
+            <value>mn3.gawande.local:8020</value>
     </property>
     <property>
-            <name>dfs.namenode.rpc-address.mycluster.nn2</name>
-            <value>mn2.gawande.local:8020</value>
+            <name>dfs.namenode.rpc-address.mycluster.nn4</name>
+            <value>mn4.gawande.local:8020</value>
     </property>
     <property>
-           <name>dfs.namenode.http-address.mycluster.nn1</name>
-           <value>mn1.gawande.local:50070</value>
+           <name>dfs.namenode.http-address.mycluster.nn3</name>
+           <value>mn3.gawande.local:50070</value>
     </property>
     <property>
-           <name>dfs.namenode.http-address.mycluster.nn2</name>
-           <value>mn2.gawande.local:50070</value>
+           <name>dfs.namenode.http-address.mycluster.nn4</name>
+           <value>mn4.gawande.local:50070</value>
     </property>
-
+    <property>
+           <name>dfs.ha.automatic-failover.enabled</name>
+           <value>true</value>
+    </property>
+    <property>
+           <name>dfs.journalnode.edits.dir</name>
+           <value>/data/mycluster</value>
+    </property>
     <property>
            <name>dfs.namenode.shared.edits.dir</name>
-           <value>file:///mnt/data1/edits</value>
+           <value>qjournal://mn3.gawande.local:8485;mn4.gawande.local:8485;mn5.gawande.local:8485/mycluster</value>
     </property>
+
     <property>
            <name>dfs.client.failover.proxy.provider.mycluster</name>
            <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>

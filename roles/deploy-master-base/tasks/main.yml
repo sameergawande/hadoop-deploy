@@ -88,7 +88,7 @@
     state: directory
     owner: hadoop
     group: hadoop
-    mode: 0755
+    mode: 0777
   tags:
     - ["deploy-all"]
     - ["deploy-wn"]
@@ -98,7 +98,16 @@
     state: directory
     owner: hadoop
     group: hadoop
-    mode: 0755
+    mode: 0777
+  tags: 
+    - ["deploy-all"]
+- name: journal node dir
+  file:
+    path: /data/mycluster
+    state: directory
+    owner: hadoop
+    group: hadoop
+    mode: 0777
   tags: 
     - ["deploy-all"]
 

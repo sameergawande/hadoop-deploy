@@ -1,33 +1,48 @@
 ---
 # tasks file for dns-clients
--  name: remove packages
-   yum:
-     name:
-       - dhclient
-       - NetworkManager
-     state: absent
--  name: copy
-   copy:
-     src: resolv.conf
-     dest: /etc/resolv.conf
-     owner: root
-     group: root
-     mode: '0644'
+- name: remove packages
+  yum:
+   name:
+    - dhclient
+    - NetworkManager
+   state: absent
+  tags:
+   - ["deploy-all"]
+   - ["deploy-wn"]
+- name: copy
+  copy:
+   src: resolv.conf
+   dest: /etc/resolv.conf
+   owner: root
+   group: root
+   mode: '0644'
+  tags:
+   - ["deploy-all"]
+   - ["deploy-wn"]
 - name: add default gw if not present
   lineinfile:
-    path: "/etc/sysconfig/network"
-    regexp: "GATEWAY=192.168.1.1"
-    line:  "GATEWAY=192.168.1.1"
-    state: present
+   path: "/etc/sysconfig/network"
+   regexp: "GATEWAY=192.168.1.1"
+   line:  "GATEWAY=192.168.1.1"
+   state: present
+  tags:
+   - ["deploy-all"]
+   - ["deploy-wn"]
 - name: restart network
   service:
-    name: network
-    state: restarted
--  name: install packages
-   yum:
-     name:
-       - net-tools
-       - nc
-       - java-1.8.0-openjdk-devel
-     state: present
+   name: network
+   state: restarted
+  tags:
+   - ["deploy-all"]
+   - ["deploy-wn"]
+- name: install packages
+  yum:
+   name:
+    - net-tools
+    - nc
+    - java-1.8.0-openjdk-devel
+   state: present
+  tags:
+   - ["deploy-all"]
+   - ["deploy-wn"]
    

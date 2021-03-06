@@ -6,6 +6,9 @@
      command: "/etc/hadoop/bin/hdfs --daemon stop namenode"
      become: yes
      become_user: hadoop
+     tags:
+      - reset-all
+      - reset-zkfs
      
    - name: remove hadoop user
      user: 
@@ -13,11 +16,15 @@
        force: yes
        state: absent
        remove: yes
+     tags:
+      - reset-all
 
    - name: remove hadoop group
      group: 
        name: hadoop
        state: absent
+     tags:
+      - reset-all
 
    - name: remove files
      file: 
@@ -32,7 +39,14 @@
        - /opt/zookeeper
        - /home/zk
        - /etc/zk
+       - /data/mycluster
        - /mnt/data1/edits
+       - /etc/apache-zookeeper-3.6.1.tar.gz
+       - /etc/apache-zookeeper-3.6.1
+       - /etc/apache-zookeeper-3.6.1-bin.tar.gz
+       - /etc/apache-zookeeper-3.6.1-bin
+     tags:
+      - reset-all
  
    - name: clean packages
      yum:
@@ -46,4 +60,43 @@
        - java-1.7.0-openjdk-headless
        - java-1.8.0-openjdk-headless
        - copy-jdk-configs
+     tags:
+      - reset-all
      
+   - name: remove zkfs journalnode files
+     file: 
+       path: "{{item}}"
+       state: absent
+     with_items:
+       - /data/mycluster
+     tags:
+      - reset-zkfc
+   - name: start journalnode
+     command: "{{item}}"
+     with_items:
+       - /etc/hadoop/bin/hdfs --daemon stop journalnode 
+       - /etc/hadoop/bin/hdfs --daemon start journalnode 
+     become: yes
+     become_user: hadoop
+     tags:
+      - reset-zkfc
+   - name: set up first namenode
+     command: "{{item}}"
+     with_items:
+       - /etc/hadoop/bin/hdfs namenode -format -nonInteractive
+       - /etc/hadoop/bin/hdfs --daemon start namenode
+       - /etc/hadoop/bin/hdfs zkfc formatZK
+     command: "/etc/hadoop/bin/hdfs namenode -format -nonInteractive"
+     become: yes
+     become_user: hadoop
+     run_once: true
+     tags:
+      - reset-zkfc
+   - name: start zkfs
+     command: "{{item}}"
+     with_items: 
+       - /etc/hadoop/bin/hdfs --daemon start zkfc
+     become: yes
+     become_user: hadoop
+     tags:
+      - reset-zkfc
