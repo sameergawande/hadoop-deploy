@@ -1,6 +1,10 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://mn2.gawande.local:9000</value>
+    <value>hdfs://mycluster</value>
+  </property>
+  <property>
+    <name>ha.zookeeper.quorum</name>
+    <value>mn3.gawande.local:2181,mn4.gawande.local:2181,mn5.gawande.local:2181</value>
   </property>
 </configuration>
