@@ -7,7 +7,7 @@
      become: yes
      become_user: hadoop
      tags:
-      - reset-all
+     # - reset-all
       - reset-zkfs
      
    - name: remove hadoop user
