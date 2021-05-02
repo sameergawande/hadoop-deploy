@@ -45,4 +45,8 @@
   tags:
    - ["deploy-all"]
    - ["deploy-wn"]
+- name: stop iptables
+  ansible.builtin.systemd:
+    name: firewalld
+    state: stopped
    

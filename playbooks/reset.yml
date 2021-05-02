@@ -45,6 +45,8 @@
        - /etc/apache-zookeeper-3.6.1
        - /etc/apache-zookeeper-3.6.1-bin.tar.gz
        - /etc/apache-zookeeper-3.6.1-bin
+       - /data*/current
+       - /data*/in_use.lock:
      tags:
       - reset-all
  

@@ -1,0 +1,12 @@
+---
+- hosts: wn
+  become: true
+  - name: test1
+    shell: "ls /home/ansible/{{ item }}"
+    ignore_errors: yes
+    register: files_1_4
+    with_items:
+      - 1
+      - 2
+      - 3
+      - 4 #doesn't exist to do the example more interesting
