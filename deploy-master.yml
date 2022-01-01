@@ -1,6 +1,6 @@
 ---
 - hosts: all
   become: true
-  roles:
+  roles: 
    - users
-   - deploy-master-base
+   - role: deploy-master-base

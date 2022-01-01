@@ -84,3 +84,5 @@
    owner: hadoop
    group: hadoop
    mode: 0644
+- name: deploy myid on each zk client
+  shell: echo "{{ myid }}" > /home/hdfs/data/zookeeper/myid
