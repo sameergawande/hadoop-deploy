@@ -12,21 +12,21 @@
 </property>
 <property>
   <name>yarn.resourcemanager.hostname.rm1</name>
-  <value>mn2.gawande.local</value>
+  <value>192.168.1.216</value>
 </property>
 <property>
   <name>yarn.resourcemanager.hostname.rm2</name>
-  <value>wn3.gawande.local</value>
+  <value>192.168.1.226</value>
 </property>
 <property>
   <name>yarn.resourcemanager.webapp.address.rm1</name>
-  <value>mn2.gawande.local:8088</value>
+  <value>192.168.1.216:8088</value>
 </property>
 <property>
   <name>yarn.resourcemanager.webapp.address.rm2</name>
-  <value>wn3.gawande.local:8088</value>
+  <value>192.168.1.226:8088</value>
 </property>
 <property>
   <name>hadoop.zk.address</name>
-  <value>mn1.gawande.local:2181,mn2.gawande.local:2181,wn3.gawande.local:2181</value>
+  <value>192.168.1.157:2181,192.168.1.216:2181,192.168.1.226:2181</value>
 </property>

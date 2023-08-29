@@ -21,19 +21,19 @@
     </property>
     <property>
             <name>dfs.namenode.rpc-address.mycluster1.nn1</name>
-            <value>mn1.gawande.local:8020</value>
+            <value>192.168.1.157:8020</value>
     </property>
     <property>
             <name>dfs.namenode.rpc-address.mycluster1.nn2</name>
-            <value>mn2.gawande.local:8020</value>
+            <value>192.168.1.216:8020</value>
     </property>
     <property>
            <name>dfs.namenode.http-address.mycluster1.nn1</name>
-           <value>mn1.gawande.local:50070</value>
+           <value>192.168.1.157:50070</value>
     </property>
     <property>
            <name>dfs.namenode.http-address.mycluster1.nn2</name>
-           <value>mn2.gawande.local:50070</value>
+           <value>192.168.1.216:50070</value>
     </property>
     <property>
            <name>dfs.ha.automatic-failover.enabled</name>
@@ -45,7 +45,7 @@
     </property>
     <property>
            <name>dfs.namenode.shared.edits.dir</name>
-           <value>qjournal://mn1.gawande.local:8485;mn2.gawande.local:8485;wn3.gawande.local:8485/mycluster1</value>
+           <value>qjournal://192.168.1.157:8485;192.168.1.216:8485;192.168.1.226:8485/mycluster1</value>
     </property>
 
     <property>
