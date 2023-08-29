@@ -13,27 +13,27 @@
     </property>
     <property>
 	    <name>dfs.nameservices</name>
-	    <value>mycluster1</value>
+	    <value>mycluster2</value>
     </property>
     <property>
-            <name>dfs.ha.namenodes.mycluster1</name>
-            <value>nn1,nn2</value>
+            <name>dfs.ha.namenodes.mycluster2</name>
+            <value>nn4,nn5</value>
     </property>
     <property>
-            <name>dfs.namenode.rpc-address.mycluster1.nn1</name>
-            <value>192.168.1.157:8020</value>
+            <name>dfs.namenode.rpc-address.mycluster2.nn4</name>
+            <value>192.168.1.227:8020</value>
     </property>
     <property>
-            <name>dfs.namenode.rpc-address.mycluster1.nn2</name>
-            <value>192.168.1.216:8020</value>
+            <name>dfs.namenode.rpc-address.mycluster2.nn5</name>
+            <value>192.168.1.228:8020</value>
     </property>
     <property>
-           <name>dfs.namenode.http-address.mycluster1.nn1</name>
-           <value>192.168.1.157:50070</value>
+           <name>dfs.namenode.http-address.mycluster2.nn4</name>
+           <value>192.168.1.227:50070</value>
     </property>
     <property>
-           <name>dfs.namenode.http-address.mycluster1.nn2</name>
-           <value>192.168.1.216:50070</value>
+           <name>dfs.namenode.http-address.mycluster2.nn5</name>
+           <value>192.168.1.228:50070</value>
     </property>
     <property>
            <name>dfs.ha.automatic-failover.enabled</name>
@@ -41,15 +41,15 @@
     </property>
     <property>
            <name>dfs.journalnode.edits.dir</name>
-           <value>/data/mycluster1</value>
+           <value>/data/mycluster2</value>
     </property>
     <property>
            <name>dfs.namenode.shared.edits.dir</name>
-           <value>qjournal://192.168.1.157:8485;192.168.1.216:8485;192.168.1.226:8485/mycluster1</value>
+           <value>qjournal://192.168.1.227:8485;192.168.1.228:8485;192.168.1.178:8485/mycluster2</value>
     </property>
 
     <property>
-           <name>dfs.client.failover.proxy.provider.mycluster1</name>
+           <name>dfs.client.failover.proxy.provider.mycluster2</name>
            <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
     </property>
     <property>

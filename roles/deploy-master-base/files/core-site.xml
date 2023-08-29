@@ -5,6 +5,6 @@
   </property>
   <property>
     <name>ha.zookeeper.quorum</name>
-    <value>192.168.1.157:2181,192.168.1.216:2181,192.168.1.226:2181</value>
+    <value>192.168.1.227:2181,192.168.1.228:2181,192.168.1.178:2181</value>
   </property>
 </configuration>
