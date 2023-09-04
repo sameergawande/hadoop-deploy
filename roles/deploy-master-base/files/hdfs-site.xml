@@ -17,23 +17,23 @@
     </property>
     <property>
             <name>dfs.ha.namenodes.mycluster2</name>
-            <value>nn4,nn5</value>
+            <value>mn4,wn4</value>
     </property>
     <property>
-            <name>dfs.namenode.rpc-address.mycluster2.nn4</name>
+            <name>dfs.namenode.rpc-address.mycluster2.mn4</name>
             <value>192.168.1.227:8020</value>
     </property>
     <property>
-            <name>dfs.namenode.rpc-address.mycluster2.nn5</name>
-            <value>192.168.1.228:8020</value>
+            <name>dfs.namenode.rpc-address.mycluster2.wn4</name>
+            <value>192.168.1.244:8020</value>
     </property>
     <property>
-           <name>dfs.namenode.http-address.mycluster2.nn4</name>
+           <name>dfs.namenode.http-address.mycluster2.mn4</name>
            <value>192.168.1.227:50070</value>
     </property>
     <property>
-           <name>dfs.namenode.http-address.mycluster2.nn5</name>
-           <value>192.168.1.228:50070</value>
+           <name>dfs.namenode.http-address.mycluster2.wn4</name>
+           <value>192.168.1.244:50070</value>
     </property>
     <property>
            <name>dfs.ha.automatic-failover.enabled</name>
@@ -45,7 +45,7 @@
     </property>
     <property>
            <name>dfs.namenode.shared.edits.dir</name>
-           <value>qjournal://192.168.1.227:8485;192.168.1.228:8485;192.168.1.178:8485/mycluster2</value>
+           <value>qjournal://192.168.1.227:8485;192.168.1.244:8485;192.168.1.228:8485/mycluster2</value>
     </property>
 
     <property>
