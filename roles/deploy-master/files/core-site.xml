@@ -1,6 +1,0 @@
-<configuration>
-  <property>
-    <name>fs.defaultFS</name>
-    <value>hdfs://mn2.gawande.local:9000</value>
-  </property>
-</configuration>

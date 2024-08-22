@@ -1,6 +1,0 @@
----
-# handlers file for deploy-configs
-- name: restart namenode
-  become_user: hadoop
-  command: /etc/hadoop/bin/hdfs --daemon restart namenode
-    

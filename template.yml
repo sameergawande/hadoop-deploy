@@ -1,0 +1,9 @@
+---
+- name: template file creation
+  hosts: all
+  tasks:
+    - template: 
+        src: example.j2
+        dest: /tmp/result.txt
+
+

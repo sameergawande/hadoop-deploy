@@ -32,8 +32,8 @@
        state: absent
      with_items:
        - /etc/hadoop
-       - /etc/hadoop-3.1.4
-       - /etc/hadoop-3.1.4.tar.gz
+       - /etc/hadoop-3.3.1
+       - /etc/hadoop-3.3.1.tar.gz
        - /home/hadoop/
        - /home/hdfs
        - /opt/zookeeper
@@ -47,6 +47,7 @@
        - /etc/apache-zookeeper-3.6.1-bin
      tags:
       - reset-all
+      - clean-all
  
    - name: clean packages
      yum:
@@ -62,6 +63,7 @@
        - copy-jdk-configs
      tags:
       - reset-all
+      - clean-all
      
    - name: remove zkfs journalnode files
      file: 
