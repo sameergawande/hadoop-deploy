@@ -1,0 +1,63 @@
+---
+- name: Setup MySQL Database and Update Incidents
+  hosts: localhost
+  gather_facts: no
+  vars:
+    servicenow_instance: 'dev218920.service-now.com'
+    servicenow_user: 'admin'
+    servicenow_password: 'kRM-M!57Gif'
+    mysql_user: 'root'
+    mysql_password: 'changeme'
+    mysql_host: '192.168.1.190'  # IP or hostname of the MySQL server
+    mysql_db: 'inventorydb'
+
+  tasks:
+    - name: Ensure MySQL database exists
+      community.mysql.mysql_db:
+        login_user: "{{ mysql_user }}"
+        login_password: "{{ mysql_password }}"
+        login_host: "{{ mysql_host }}"
+        name: "{{ mysql_db }}"
+        state: present
+
+    - name: Ensure table for incidents exists
+      community.mysql.mysql_query:
+        login_user: "{{ mysql_user }}"
+        login_password: "{{ mysql_password }}"
+        login_host: "{{ mysql_host }}"
+        database: "{{ mysql_db }}"
+        query: |
+          CREATE TABLE IF NOT EXISTS incidents (
+            incident_id VARCHAR(255) PRIMARY KEY,
+            description TEXT,
+            status VARCHAR(50)
+          );
+
+    - name: Fetch incidents from the last month from ServiceNow
+      uri:
+        url: "https://{{ servicenow_instance }}/api/now/table/incident?sysparm_query=sys_created_onONLast month@javascript:gs.monthsAgoStart(1)@javascript:gs.monthsAgoEnd(0)"
+        method: GET
+        user: "{{ servicenow_user }}"
+        password: "{{ servicenow_password }}"
+        return_content: yes
+        validate_certs: no
+      register: response
+
+    - name: Parse the JSON response
+      set_fact:
+        incidents: "{{ response.json.result }}"
+
+    - name: Update MySQL database with incidents
+      community.mysql.mysql_query:
+        login_user: "{{ mysql_user }}"
+        login_password: "{{ mysql_password }}"
+        login_host: "{{ mysql_host }}"
+        database: "{{ mysql_db }}"
+        query: >
+          INSERT INTO incidents (incident_id, description, status)
+          VALUES ('{{ item.sys_id }}', '{{ item.short_description | default('No description provided') }}', '{{ item.state }}')
+          ON DUPLICATE KEY UPDATE
+          description = VALUES(description),
+          status = VALUES(status);
+      with_items: "{{ incidents }}"
+      when: incidents is defined
